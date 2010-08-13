@@ -1,0 +1,15 @@
+C:\Users\NN5\Desktop\MrUploader\MrUploader.Web\bin\MrUploader.Web.dll
+C:\Users\NN5\Desktop\MrUploader\MrUploader.Web\bin\MrUploader.Web.pdb
+C:\Users\NN5\Desktop\MrUploader\MrUploader.Web\obj\Release\ResolveAssemblyReference.cache
+C:\Users\NN5\Desktop\MrUploader\MrUploader.Web\obj\Release\MrUploader.Web.dll
+C:\Users\NN5\Desktop\MrUploader\MrUploader.Web\obj\Release\MrUploader.Web.pdb
+C:\User\CVS_projects\mpop\swf\Files_uploader\MrUploader\MrUploader.Web\bin\MrUploader.Web.dll
+C:\User\CVS_projects\mpop\swf\Files_uploader\MrUploader\MrUploader.Web\bin\MrUploader.Web.pdb
+C:\User\CVS_projects\mpop\swf\Files_uploader\MrUploader\MrUploader.Web\obj\Release\ResolveAssemblyReference.cache
+C:\User\CVS_projects\mpop\swf\Files_uploader\MrUploader\MrUploader.Web\obj\Release\MrUploader.Web.dll
+C:\User\CVS_projects\mpop\swf\Files_uploader\MrUploader\MrUploader.Web\obj\Release\MrUploader.Web.pdb
+C:\User\MrUploader\MrUploader.Web\bin\MrUploader.Web.dll
+C:\User\MrUploader\MrUploader.Web\bin\MrUploader.Web.pdb
+C:\User\MrUploader\MrUploader.Web\obj\Release\ResolveAssemblyReference.cache
+C:\User\MrUploader\MrUploader.Web\obj\Release\MrUploader.Web.dll
+C:\User\MrUploader\MrUploader.Web\obj\Release\MrUploader.Web.pdb
