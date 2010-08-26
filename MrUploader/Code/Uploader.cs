@@ -30,7 +30,7 @@ namespace MrUploader
 		public readonly static int MaxChunkSize = 512 * 1024;
 		public readonly static int MaxChunkRetries = 10;
 		public readonly static double PercentPrecision = 1.0;
-		public readonly static int JsNotifyInterval = 200; // milliseconds
+		public readonly static int JsNotifyInterval = 100; // milliseconds
 		public readonly static int JsNotifyTryies = 1000;
 		public readonly static int RetryTimeoutBase = 5000; // milliseconds
 		// upload error codes
@@ -111,21 +111,6 @@ namespace MrUploader
 
 		public string Name { get { return File.Name; } }
 
-		private static string Byte2Hex(byte[] value)
-		{
-			try
-			{
-				var sb = new StringBuilder(value.Length * 2);
-				foreach (var b in value)
-				{
-					sb.AppendFormat(CultureInfo.CurrentCulture, "{0:X2}", b);
-				}
-				return sb.ToString();
-			}
-			catch (Exception) { }
-			return null;
-		}
-
 		private void CalcNextChunkRanges()
 		{
 			BytesUploaded = 0;
@@ -134,7 +119,7 @@ namespace MrUploader
 			if (ResponseText != null && ResponseText.Length != 0)
 			{
 				// We can not check response.StatusCode, see comments in constructor of FileUploadControl
-				if (Regex.IsMatch(ResponseText, @"^\d+-\d+/\d+")) // we got 201 response
+				if (Regex.IsMatch(ResponseText, @"^\d+-\d+/\d+$")) // we got 201 response
 				{
 					long holeStart = 0, holeEnd = 0;
 					// let's find first hole in ranges
@@ -278,7 +263,7 @@ namespace MrUploader
 
 		private void setErrorDescription(Exception ex, string where)
 		{
-			ErrorDescr += where + "{" + ex.Message + " / " + ex.InnerException.Message + "}";
+			ErrorDescr += where + "{" + ex.Message + " / " + ex.InnerException.Message + " / STACK: " + ex.StackTrace + "}";
 		}
 
 		public void UploadFileEx()
