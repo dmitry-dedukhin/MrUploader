@@ -29,6 +29,7 @@ namespace MrUploader
 			files = new ObservableCollection<FileUpload>();
 			InitializeComponent();
 			Loaded += new RoutedEventHandler(Page_Loaded);
+			notifyTimer = new DispatcherTimer();
 			/*
 			 We could use the following line to switch to ClientHttp http stack.
 			 In this case we will have one advantage: correct response code from server (to distinguish 201 and 200 code).
@@ -38,11 +39,9 @@ namespace MrUploader
 			*/
 			//bool httpResult = WebRequest.RegisterPrefix("http://", WebRequestCreator.ClientHttp);
 		}
-		public void StartNotifyJS(object o, EventArgs sender)
+		public void StartNotifyJS()
 		{
-			// can be called either when image loading completed, or after setting classic button
 			notifyJsTick = Constants.JsNotifyTryies;
-			notifyTimer = new DispatcherTimer();
 			notifyTimer.Interval = new TimeSpan(0, 0, 0, 0, Constants.JsNotifyInterval);
 			notifyTimer.Tick += new EventHandler(NotifyJS);
 			notifyTimer.Start();
@@ -69,13 +68,11 @@ namespace MrUploader
 			((Button)LayoutRoot.FindName("BrowseButton")).Content = BrowseText;
 			((Button)LayoutRoot.FindName("BrowseButton")).Visibility = Visibility.Visible;
 			((Image)LayoutRoot.FindName("BrowseImage")).Visibility = Visibility.Collapsed;
-			StartNotifyJS(null, null);
 		}
 		void SetImageButton()
 		{
 			BitmapImage im = new BitmapImage(new Uri(ButtonURL));
 			im.ImageFailed += new EventHandler<ExceptionRoutedEventArgs>(SetClassicButton);
-			im.ImageOpened += new EventHandler<RoutedEventArgs>(StartNotifyJS);
 			((Image)LayoutRoot.FindName("BrowseImage")).Source = im;
 			((Image)LayoutRoot.FindName("BrowseImage")).Visibility = Visibility.Visible;
 			((Button)LayoutRoot.FindName("BrowseButton")).Visibility = Visibility.Collapsed;
@@ -83,6 +80,7 @@ namespace MrUploader
 		void Page_Loaded(object sender, RoutedEventArgs e)			
 		{
 			HtmlPage.RegisterScriptableObject("API", this);
+			StartNotifyJS();
 			if (ButtonURL.Length > 0)
 			{
 				SetImageButton();
