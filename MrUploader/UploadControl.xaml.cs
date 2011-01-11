@@ -106,9 +106,10 @@ namespace MrUploader
 					upload.UploadProgressChanged += new ProgressChangedEvent(upload_UploadProgressChanged);
 					//debug
 					upload.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(upload_Debug);
+					Int32 ms = DateTime.Now.Millisecond; // is used to signal about error only once per files collection selected by user (file too big or number of files is too big)
 					try
 					{
-						HtmlPage.Window.Invoke("newUploadCallback", upload.SessionId, upload.Name, upload.FileLength, DateTime.Now.Millisecond, dlg.Files.Count());
+						HtmlPage.Window.Invoke("newUploadCallback", upload.SessionId, upload.Name, upload.FileLength, ms, dlg.Files.Count());
 					}
 					catch (Exception) { }
 					files.Add(upload);
