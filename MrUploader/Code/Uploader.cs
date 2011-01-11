@@ -70,6 +70,8 @@ namespace MrUploader
 		private long currentChunkStartPos;
 		private long currentChunkEndPos;
 
+		private static Random rnd = new Random(); // static member to prevent same sessionID for two files selected at once (see https://github.com/dmitry-dedukhin/MrUploader/issues#issue/1 for details)
+
 		private FileInfo file;
 		public FileInfo File
 		{
@@ -119,7 +121,8 @@ namespace MrUploader
 			if (ResponseText != null && ResponseText.Length != 0)
 			{
 				// We can not check response.StatusCode, see comments in constructor of FileUploadControl
-				if (Regex.IsMatch(ResponseText, @"^\d+-\d+/\d+$")) // we got 201 response
+				if (Regex.IsMatch(ResponseText, @"^\d+-\d+/\d+")) // we got 201 response
+				// response can be 0-66211/6621184,6554988-6621183/6621184, so we do not include string end in regexp
 				{
 					long holeStart = 0, holeEnd = 0;
 					// let's find first hole in ranges
@@ -216,7 +219,7 @@ namespace MrUploader
 		{
 			Dispatcher = dispatcher;
 			Status = FileUploadStatus.Pending;
-			SessionId = (1100000000 + new Random().Next(10000000, 99999999)).ToString();
+			SessionId = (1100000000 + rnd.Next(10000000, 99999999)).ToString();
 			uploadRetryTimer = new DispatcherTimer();
 			uploadRetryTimer.Tick += new EventHandler(UploadFileRetryEx);
 		}
